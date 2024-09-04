@@ -1,4 +1,4 @@
-from odoo import models, fields
+from odoo import models, fields,api
 
 
 class PurchaseOrder(models.Model):
@@ -10,4 +10,5 @@ class PurchaseOrder(models.Model):
 class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
 
-    contract_number = fields.Char(string='Contract Number', related='order_id.contract_number', store=True)
+    contract_number = fields.Char(string='Contract Number', related='order_id.contract_number', store=True, readonly=True)
+

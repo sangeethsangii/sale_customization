@@ -1,0 +1,23 @@
+<odoo>
+    <!-- Inherit Sale Order Form View -->
+    <record id="view_order_form_custom" model="ir.ui.view">
+        <field name="name">sale.order.form.custom</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <!-- Add buttons to the header -->
+            <xpath expr="//header" position="inside">
+                <button name="action_partially" type="object" string="Set Partially"
+                />
+                <button name="action_closed" type="object" string="Set Closed"
+                />
+            </xpath>
+
+            <!-- Make fields readonly when in 'Partially' or 'Closed' state -->
+            <xpath expr="//field" position="attributes">
+                <attribute name="readonly">{'readonly': [('state', 'in', ['partially', 'closed'])]}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
