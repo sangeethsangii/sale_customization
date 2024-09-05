@@ -1,0 +1,46 @@
+<odoo>
+    <record id="action_set_partially" model="ir.actions.server">
+        <field name="name">Set Partially</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="state">Partially</field>
+        <field name="code">record.action_partially()</field>
+    </record>
+
+    <record id="action_set_closed" model="ir.actions.server">
+        <field name="name">Set Closed</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="state">closed</field>
+        <field name="code">record.action_closed()</field>
+    </record>
+
+    <!-- Update the Sale Order form view to include the new states -->
+    <record id="view_order_form_custom" model="ir.ui.view">
+        <field name="name">sale.order.form.custom</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="attributes">
+                <attribute name="selection">[('draft', 'Draft'), ('sent', 'Quotation Sent'), ('sale', 'Sales Order'),
+                    ('done', 'Done'), ('cancel', 'Cancelled'), ('partially', 'Partially'), ('closed', 'Closed')]
+                </attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Add buttons to the Sale Order form to trigger server actions -->
+    <record id="view_order_form_custom_buttons" model="ir.ui.view">
+        <field name="name">sale.order.form.custom.buttons</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="%(action_set_partially)d" type="action" string="Set Partially" class="btn-primary"
+                        attrs="{'invisible': [('state', 'in', ['partially', 'closed'])]}"/>
+                <button name="%(action_set_closed)d" type="action" string="Set Closed" class="btn-primary"
+                        attrs="{'invisible': [('state', 'in', ['partially', 'closed'])]}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
+

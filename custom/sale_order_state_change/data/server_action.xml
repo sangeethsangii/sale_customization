@@ -1,0 +1,36 @@
+<odoo>
+    <!-- Server action to set the state to 'partially' -->
+    <record id="action_set_to_partially" model="ir.actions.server">
+        <field name="name">Set to Partially</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = env['sale.order'].browse(env.context.get('active_id')).write({'state': 'partially'})
+        </field>
+    </record>
+
+    <!-- Server action to set the state to 'closed' -->
+    <record id="action_set_to_closed" model="ir.actions.server">
+        <field name="name">Set to Closed</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = env['sale.order'].browse(env.context.get('active_id')).write({'state': 'closed'})
+        </field>
+    </record>
+
+    <!-- Adding the actions to the sale order action dropdown -->
+    <record id="sale_order_action_partially" model="ir.values">
+        <field name="name">Set to Partially</field>
+        <field name="model">sale.order</field>
+        <field name="key2">client_action_multi</field>
+        <field name="value" eval="[(6, 0, [ref('sale_order_state_change.action_set_to_partially')])]"/>
+    </record>
+
+    <record id="sale_order_action_closed" model="ir.values">
+        <field name="name">Set to Closed</field>
+        <field name="model">sale.order</field>
+        <field name="key2">client_action_multi</field>
+        <field name="value" eval="[(6, 0, [ref('sale_order_state_change.action_set_to_closed')])]"/>
+    </record>
+</odoo>
