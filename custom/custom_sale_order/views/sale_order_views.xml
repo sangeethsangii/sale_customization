@@ -36,6 +36,7 @@
             <xpath expr="//header" position="inside">
                 <button name="%(action_set_partially)d" type="action" string="Set Partially" class="btn-primary"
                         attrs="{'invisible': [('state', 'in', ['partially', 'closed'])]}"/>
+
                 <button name="%(action_set_closed)d" type="action" string="Set Closed" class="btn-primary"
                         attrs="{'invisible': [('state', 'in', ['partially', 'closed'])]}"/>
             </xpath>

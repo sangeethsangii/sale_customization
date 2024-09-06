@@ -10,6 +10,17 @@ class SaleOrder(models.Model):
     def action_partially(self):
         self.write({'state': 'partially'})
 
+        print(self)
+
+
     @api.model
     def action_closed(self):
         self.write({'state': 'closed'})
+
+
+
+
+
+
+
+
