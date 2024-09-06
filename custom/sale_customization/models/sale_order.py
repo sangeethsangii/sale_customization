@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from odoo import models, fields, api, exceptions
 
 
@@ -7,11 +6,10 @@ class SaleOrder(models.Model):
 
     def action_confirm(self):
         for order in self:
-            # Search for order lines with products marked as 'is_quotation_only_product'
-            quotation_lines = self.env['sale.order.line'].search([
-                ('order_id', '=', order.id),
-                ('product_id.is_quotation_only_product', '=', True)
-            ])
+            # Filter order lines with products marked as 'is_quotation_only_product'
+            quotation_lines = order.order_line.filtered(
+                lambda line: line.product_id.is_quotation_only_product
+            )
             if quotation_lines:
                 raise exceptions.UserError(
                     'You cannot confirm a quotation because it contains quotation only products.'
@@ -26,6 +24,3 @@ class ProductProduct(models.Model):
         string='Quotation Only Product',
         help='If checked, this product can only be used in quotations and cannot be sold.'
     )
-
-
-
