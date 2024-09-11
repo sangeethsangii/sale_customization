@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_crm_stage_restricted,crm.stage restricted,model_crm_stage,group_manage_restricted_stage,1,1,0,0

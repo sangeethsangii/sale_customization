@@ -1,0 +1,6 @@
+<odoo>
+    <record id="group_crm_restricted" model="res.groups">
+        <field name="name">CRM Restricted Stages</field>
+        <field name="category_id" ref="base.module_category_crm"/>
+    </record>
+</odoo>

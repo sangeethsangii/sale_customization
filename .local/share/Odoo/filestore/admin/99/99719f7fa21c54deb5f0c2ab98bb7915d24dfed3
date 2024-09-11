@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//PYVOBJECT//NONSGML Version 1//EN
+BEGIN:VEVENT
+UID:20240909T043704Z - 22096@sangeeth-VivoBook-ASUSLaptop-X415EA-X415EA
+DTSTART:20240912T155505Z
+DTEND:20240912T185505Z
+ATTENDEE:MAILTO:admin@yourcompany.example.com
+CREATED:20240909T043704Z
+DESCRIPTION:Internal meeting for discussion for new pricing for product and
+  services.
+DTSTAMP:20240909T043704Z
+ORGANIZER;CN="YourCompany, Mitchell Admin":MAILTO:admin@yourcompany.example
+ .com
+SUMMARY:Pricing Discussion
+END:VEVENT
+END:VCALENDAR

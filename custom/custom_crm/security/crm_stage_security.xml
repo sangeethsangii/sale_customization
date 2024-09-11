@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="group_manage_restricted_stage" model="res.groups">
+        <field name="name">Manage Restricted Stages</field>
+        <field name="category_id" ref="base.module_category_crm"/>
+    </record>
+</odoo>
