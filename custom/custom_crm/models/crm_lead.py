@@ -1,12 +1,13 @@
-from odoo import models, api
+from odoo import models, api , exceptions
 from odoo.exceptions import UserError
 
 class CrmLead(models.Model):
     _inherit = 'crm.lead'
 
-    @api.onchange('stage_id')
-    def _onchange_stage_id(self):
-        if self.stage_id.is_restricted:
-            user = self.env.user
-            if not user.has_group('custom_crm_stage_restriction.group_restricted_stage'):
-                raise UserError('You are not allowed to move the lead to a restricted stage.')
+
+    @api.constrains('stage_id')
+    def _check_stage_access(self):
+        for lead in self:
+            if lead.stage_id.is_restricted :
+                if not self.env.user.has_group('custom_crm.group_manage_restricted_stage'):
+                    raise exceptions.UserError("You do not have permission to access this restricted stage.")
