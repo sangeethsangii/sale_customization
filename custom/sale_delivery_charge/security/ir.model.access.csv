@@ -1,0 +1,3 @@
+id,name,model_id:id,model,name,perm_read,perm_write,perm_create,perm_unlink
+access_sale_order_delivery_charge,sale.order.delivery.charge,model_sale_order,base.group_user,1,1,1,1
+

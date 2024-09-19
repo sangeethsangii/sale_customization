@@ -16,11 +16,11 @@ class SaleOrder(models.Model):
                 )
         return super(SaleOrder, self).action_confirm()
 
-
-class ProductProduct(models.Model):
-    _inherit = 'product.template'
-
-    is_quotation_only_product = fields.Boolean(
-        string='Quotation Only Product',
-        help='If checked, this product can only be used in quotations and cannot be sold.'
-    )
+#
+# class ProductProduct(models.Model):
+#     _inherit = 'product.template'
+#
+#     is_quotation_only_product = fields.Boolean(
+#         string='Quotation Only Product',
+#         help='If checked, this product can only be used in quotations and cannot be sold.'
+#     )
