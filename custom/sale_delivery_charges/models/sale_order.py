@@ -1,31 +1,34 @@
 from odoo import models, fields, api
 
-
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    delivery_charge = fields.Float(string='Delivery Charge')
+    delivery_charge = fields.Float(string="Delivery Charge", default=0.0)
 
-
-    # @api.depends('order_line.price_total', 'delivery_charge')
-    # def _compute_amount(self):
-    #     for order in self:
-    #
-    #         # Calculate the total amount including delivery charge
-    #
-    #         order.amount_untaxed = sum(line.price_subtotal for line in order.order_line)
-    #         order.amount_tax = sum(
-    #             line.tax_id.compute_all(line.price_subtotal)['total_included'] for line in order.order_line)
-    #         order.amount_total = order.amount_untaxed + order.amount_tax + order.delivery_charge
-    #
-    # amount_untaxed = fields.Monetary(string='Untaxed Amount', compute='_compute_amount', store=True)
-    # amount_tax = fields.Monetary(string='Taxes', compute='_compute_amount', store=True)
-    # amount_total = fields.Monetary(string='Total', compute='_compute_amount', store=True)
-
-
-
-
-
-
-
-
+    @api.onchange('delivery_charge')
+    def _onchange_delivery_charge(self):
+        for order in self:
+            if order.delivery_charge:
+                # Search for existing delivery charge line
+                existing_line = order.order_line.filtered(lambda line: line.product_id.name == 'Delivery Charge')
+                if existing_line:
+                    # Update existing line if it already exists
+                    existing_line.price_unit = order.delivery_charge  # Set price
+                else:
+                    # Create a new sale order line for delivery charge
+                    product = self.env['product.product'].search([('name', '=', 'Delivery Charge')], limit=1)
+                    if not product:
+                        # Create the product if it doesn't exist
+                        product = self.env['product.product'].create({
+                            'name': 'Delivery Charge',
+                            'type': 'service',  # Set as service type
+                            'list_price': order.delivery_charge,
+                        })
+                    # Create the sale order line
+                    self.env['sale.order.line'].create({
+                        'order_id': order.ids[0],  # Ensure order_id is set correctly
+                        'product_id': product.id,
+                        'name': product.name,
+                        'product_uom_qty': 1,
+                        'price_unit': order.delivery_charge,
+                    })

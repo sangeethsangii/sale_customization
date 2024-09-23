@@ -2,11 +2,15 @@
     <data>
         <record id="sale_order_form_view" model="ir.ui.view">
             <field name="name">sale.order.form</field>
-            <field name="model">sale.order.line</field>
+            <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//form/sheet/notebook/page/field/form/group/group/field[@name='order_lines']" position="before">
-                    <field name="delivery_charge"/>
+                <xpath expr="//div[@class='float-end d-flex gap-1 mb-2 ms-1' and @name='so_button_below_order_lines']"
+                       position="after">
+                    <div class="float-end">
+                        <label for="delivery_charge" string="Delivery Charge"/>
+                        <field name="delivery_charge"/>
+                    </div>
                 </xpath>
 
             </field>
