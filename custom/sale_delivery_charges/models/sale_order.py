@@ -1,5 +1,6 @@
 from odoo import models, fields, api
 
+
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
@@ -8,6 +9,7 @@ class SaleOrder(models.Model):
     @api.onchange('delivery_charge')
     def _onchange_delivery_charge(self):
         for order in self:
+
             if order.delivery_charge:
                 # Search for existing delivery charge line
                 existing_line = order.order_line.filtered(lambda line: line.product_id.name == 'Delivery Charge')
@@ -17,18 +19,22 @@ class SaleOrder(models.Model):
                 else:
                     # Create a new sale order line for delivery charge
                     product = self.env['product.product'].search([('name', '=', 'Delivery Charge')], limit=1)
+                    product.taxes_id = False
                     if not product:
                         # Create the product if it doesn't exist
                         product = self.env['product.product'].create({
                             'name': 'Delivery Charge',
                             'type': 'service',  # Set as service type
                             'list_price': order.delivery_charge,
+                            'taxes_id': False
                         })
                     # Create the sale order line
-                    self.env['sale.order.line'].create({
-                        'order_id': order.ids[0],  # Ensure order_id is set correctly
+                    product_list = [(0, 0, {
                         'product_id': product.id,
                         'name': product.name,
+                        'product_uom': product.uom_id.id,
                         'product_uom_qty': 1,
                         'price_unit': order.delivery_charge,
-                    })
+                    })]
+                    # product_list.append(order_lines)
+                    self.order_line = [(2, 0, 0)] + product_list
