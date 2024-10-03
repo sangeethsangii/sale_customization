@@ -4,12 +4,18 @@ from odoo import models, fields, api
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    delivery_charge = fields.Float(string="Delivery Charge", default=0.0)
+    delivery_charge = fields.Float(string="Delivery Charge", compute='compute_delivery_method',inverse='_onchange_delivery_charge')
+
+    @api.depends('order_line.price_unit')
+    def compute_delivery_method(self):
+        for rec in self:
+            existing_line = rec.order_line.filtered(lambda line: line.product_id.name == 'Delivery Charge')
+            if existing_line:
+                rec.delivery_charge = existing_line.price_unit
 
     @api.onchange('delivery_charge')
     def _onchange_delivery_charge(self):
         for order in self:
-
             if order.delivery_charge:
                 # Search for existing delivery charge line
                 existing_line = order.order_line.filtered(lambda line: line.product_id.name == 'Delivery Charge')
@@ -38,3 +44,6 @@ class SaleOrder(models.Model):
                     })]
                     # product_list.append(order_lines)
                     self.order_line = [(2, 0, 0)] + product_list
+
+
+

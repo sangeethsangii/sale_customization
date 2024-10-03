@@ -4,7 +4,7 @@
     'version': '17.0.1.0',
     'author': 'Your Name',
     'category': 'Sales',
-    'depends': ['sale'],
+    'depends': ['sale','account'],
     'data': [
         'views/sale_order_views.xml',
     ],
