@@ -11,13 +11,16 @@
 
                 <xpath expr="//div[@class='float-end d-flex gap-1 mb-2 ms-1' and @name='so_button_below_order_lines']"
                        position="after">
-
                     <div class="float-end">
                         <label for="delivery_charge" string="Delivery Charge"/>
                         <field name="delivery_charge" readonly="1"/>
                     </div>
-
                 </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="after">
+                    <field name="is_delivery_charge"/>
+                </xpath>
+
+
 
             </field>
         </record>

@@ -7,5 +7,6 @@
     'depends': ['sale','account'],
     'data': [
         'views/sale_order_views.xml',
+        # 'views/account_views.xml',
     ],
 }
