@@ -18,8 +18,10 @@ class AccountMove(models.Model):
 
 
 
+
+
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
-    is_delivery_charge = fields.Boolean(string="Is Delivery Charge")
+    is_delivery_charge = fields.Boolean(string="Is Delivery Charge" ,default=False)
 

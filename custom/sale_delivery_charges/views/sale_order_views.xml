@@ -16,10 +16,10 @@
                         <field name="delivery_charge" readonly="1"/>
                     </div>
                 </xpath>
+
                 <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="after">
                     <field name="is_delivery_charge"/>
                 </xpath>
-
 
 
             </field>
@@ -33,12 +33,16 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='invoice_line_ids']" position="after">
                     <div class="float-end">
+
                         <label for="delivery_charge" string="Delivery Charge"/>
+
                         <field name="delivery_charge"/>
                     </div>
+
                 </xpath>
             </field>
         </record>
+
     </data>
 </odoo>
 
