@@ -5,19 +5,19 @@ class SaleOrder(models.Model):
 
     def _can_be_confirmed(self):
         self.ensure_one()
-        return self.state in {'draft', 'sent','to_delivery'}
+        return self.state in {'draft', 'sent'}
 
     def action_confirm(self):
         if self.env.context.get('delivery_disabled'):
             res = super(SaleOrder, self).action_confirm()
             self.delivery_disabled = True
         else:
-            self.state = 'to_delivery'
+            self.state = 'sent'
             res = True
         return res
 
     delivery_disabled = fields.Boolean('Disable Delivery', default=False)
-    state = fields.Selection(selection_add=[('to_delivery','To Delivery')])
+    # state = fields.Selection(selection_add=[('to_delivery','To Delivery')])
 
     def create_delivery(self):
         self.ensure_one()
@@ -34,4 +34,6 @@ class SaleOrder(models.Model):
             'view_mode': 'form',
             'target': 'new',
         }
+
+
 

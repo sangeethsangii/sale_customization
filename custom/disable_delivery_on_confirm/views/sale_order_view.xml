@@ -9,11 +9,14 @@
                 <field name="delivery_disabled" invisible="1"/>
             </xpath>
             <xpath expr="//button[@name='action_cancel']" position="after">
-                <button name="action_confirm" string="Create Delivery" type="object" context="{'delivery_disabled': True}"
-                        invisible ="state != 'to_delivery' and delivery_disabled != False"/>
+                <button name="action_confirm" string="Create Delivery" type="object"
+                        context="{'delivery_disabled': True}"/>
+                attrs="{'invisible': [('delivery_disabled', '=', True)]}"/>
 
             </xpath>
         </field>
     </record>
 </odoo>
+
+
 
