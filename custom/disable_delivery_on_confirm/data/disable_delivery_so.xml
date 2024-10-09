@@ -1,0 +1,14 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<odoo>-->
+<!--    <data>-->
+<!--        &lt;!&ndash; Button to create delivery &ndash;&gt;-->
+<!--        <record id="action_create_delivery" model="ir.actions.act_window">-->
+<!--            <field name="name">Create Delivery</field>-->
+<!--            <field name="res_model">stock.picking</field>-->
+<!--            <field name="view_mode">form</field>-->
+<!--            <field name="target">new</field>-->
+<!--            <field name="context">{'default_sale_order_id': active_id}</field>-->
+<!--        </record>-->
+<!--    </data>-->
+<!--</odoo>-->
+

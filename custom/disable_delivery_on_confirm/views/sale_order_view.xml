@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_order_form_view_inherit" model="ir.ui.view">
+        <field name="name">sale.order.form.view.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='locked']" position="before">
+                <field name="delivery_disabled" invisible="1"/>
+            </xpath>
+            <xpath expr="//button[@name='action_cancel']" position="after">
+                <button name="action_confirm" string="Create Delivery" type="object" context="{'delivery_disabled': True}"
+                        invisible ="state != 'to_delivery' and delivery_disabled != False"/>
+
+            </xpath>
+        </field>
+    </record>
+</odoo>
+
