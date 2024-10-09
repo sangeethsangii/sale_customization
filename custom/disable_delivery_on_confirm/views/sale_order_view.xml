@@ -5,9 +5,11 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
+
             <xpath expr="//field[@name='locked']" position="before">
                 <field name="delivery_disabled" invisible="1"/>
             </xpath>
+
             <xpath expr="//button[@name='action_cancel']" position="after">
                 <button name="action_confirm" string="Create Delivery" type="object"
                         context="{'delivery_disabled': True}"/>
@@ -17,6 +19,7 @@
         </field>
     </record>
 </odoo>
+
 
 
 

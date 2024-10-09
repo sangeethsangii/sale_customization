@@ -1,11 +1,8 @@
 from odoo import api, fields, models
 
+
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
-
-    def _can_be_confirmed(self):
-        self.ensure_one()
-        return self.state in {'draft', 'sent'}
 
     def action_confirm(self):
         if self.env.context.get('delivery_disabled'):
@@ -17,11 +14,13 @@ class SaleOrder(models.Model):
         return res
 
     delivery_disabled = fields.Boolean('Disable Delivery', default=False)
+
     # state = fields.Selection(selection_add=[('to_delivery','To Delivery')])
 
     def create_delivery(self):
         self.ensure_one()
         picking = self.env['stock.picking'].create({
+
             'sale_order_id': self.id,
             'partner_id': self.partner_id.id,
             'picking_type_id': self.env.ref('stock.picking_type_in').id,
@@ -34,6 +33,3 @@ class SaleOrder(models.Model):
             'view_mode': 'form',
             'target': 'new',
         }
-
-
-
