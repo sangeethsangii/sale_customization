@@ -1,4 +1,4 @@
-from email.policy import default
+
 
 from odoo import models, api, exceptions, fields
 from odoo.exceptions import UserError

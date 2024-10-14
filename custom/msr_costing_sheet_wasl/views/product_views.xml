@@ -1,0 +1,28 @@
+<odoo>
+    <data>
+        <!-- Inherit the product form view to add the new field -->
+        <record id="view_product_form_inherit" model="ir.ui.view">
+            <field name="name">product.form.inherit</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <field name="default_code" position="after">
+                    <field name="product_type" />
+                </field>
+            </field>
+        </record>
+
+        <!-- Inherit the product tree view to add the new field -->
+        <record id="view_product_tree_inherit" model="ir.ui.view">
+            <field name="name">product.tree.inherit</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="default_code" position="after">
+                    <field name="product_type" />
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>
+

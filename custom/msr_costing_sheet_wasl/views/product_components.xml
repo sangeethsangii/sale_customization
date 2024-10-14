@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_product_components_tree" model="ir.ui.view">
+        <field name="name">product.components.tree</field>
+        <field name="model">product.components</field>
+        <field name="arch" type="xml">
+            <tree string="componenets">
+                <field name="product_id" />
+                <field name="total_material_estimation" />
+                <field name="total_labour_estimation" />
+                <field name="total_overhead_estimation" />
+                <field name="total_miscellaneous_estimation"/>
+            </tree>
+        </field>
+    </record>
+        
+    <record id="view_product_components_form" model="ir.ui.view">
+        <field name="name">product.components.form</field>
+        <field name="model">product.components</field>
+        <field name="arch" type="xml">
+            <form string="Components">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="product_id" readonly="1" force_save="1"/>
+                        </h1>
+                    </div>
+                    <notebook>
+                        <page string="Material Estimation" name="material_estimation">
+                            <field name="prd_material_lines_ids">
+                                <tree string="Material Order Lines"
+                                    editable="bottom"
+                                    limit="200">
+                                    <field name="product_id" context="{'default_product_type': 'material'}"/>
+                                    <field name="name"/>
+                                    <field name="product_type"/>
+                                    <field name="product_uom_qty"/>
+                                    <field name="product_uom"/>
+                                    <field name="product_uom_category_id" column_invisible="1"/>
+                                    <field name="price_unit"/>
+                                    <field name="discount"/>
+                                    <field name="price_subtotal"/>
+                                    
+                                </tree>
+                            </field>
+                            <group name="note_group" col="6" class="mt-2 mt-md-0">
+                            <group colspan="4">
+                                <!--<field  colspan="2" name="note" nolabel="1" placeholder="Terms and conditions..."/>-->
+                            </group>
+                            <group class="oe_subtotal_footer" colspan="2" name="sale_total">
+                                
+                                <field name="total_material_estimation"/>
+                                <field name="amount_total"/>
+                            </group>
+                            <div class="clearfix"/>
+                        </group>
+                        </page>
+                        <page string="Labour Estimation" name="labour_estimation">
+                            <field name="prd_labour_lines_ids">
+                                <tree string="Labour Order Lines"
+                                    editable="bottom"
+                                    limit="200">
+                                    <field name="product_id" context="{'default_product_type': 'labour'}"/>
+                                    <field name="name"/>
+                                    <field name="product_type"/>
+                                    <field name="product_uom_qty"/>
+                                    <field name="product_uom"/>
+                                    <field name="product_uom_category_id" column_invisible="1"/>
+                                    <field name="price_unit"/>
+                                    <field name="discount"/>
+                                    <field name="price_subtotal"/>
+                                    
+                                </tree>
+                            </field>
+                            <group name="note_group" col="6" class="mt-2 mt-md-0">
+                            <group colspan="4">
+                                <!--<field  colspan="2" name="note" nolabel="1" placeholder="Terms and conditions..."/>-->
+                            </group>
+                            <group class="oe_subtotal_footer" colspan="2" name="sale_total">
+                                <field name="total_labour_estimation"/>
+                            </group>
+                            <div class="clearfix"/>
+                        </group>
+                        </page>
+                        <page string="Overhead Estimation" name="overhead_estimation">
+                            <field name="prd_overhead_lines_ids">
+                                <tree string="Overhead Order Lines"
+                                    editable="bottom"
+                                    limit="200">
+                                    <field name="product_id" context="{'default_product_type': 'overhead'}"/>
+                                    <field name="name"/>
+                                    <field name="product_type"/>
+                                    <field name="product_uom_qty"/>
+                                    <field name="product_uom"/>
+                                    <field name="product_uom_category_id" column_invisible="1"/>
+                                    <field name="price_unit"/>
+                                    <field name="discount"/>
+                                    <field name="price_subtotal"/>
+                                    
+                                </tree>
+                            </field>
+                            <group name="note_group" col="6" class="mt-2 mt-md-0">
+                            <group colspan="4">
+                                <!--<field  colspan="2" name="note" nolabel="1" placeholder="Terms and conditions..."/>-->
+                            </group>
+                            <group class="oe_subtotal_footer" colspan="2" name="sale_total">
+                                <field name="total_overhead_estimation"/>
+                            </group>
+                            <div class="clearfix"/>
+                        </group>
+                        </page>
+                        <page string="Miscellaneous Estimation" name="miscellaneous_estimation">
+                            <field name="prd_miscellaneous_lines_ids">
+                                <tree string="Miscellaneous Order Lines"
+                                    editable="bottom"
+                                    limit="200">
+                                    <field name="product_id" context="{'default_product_type': 'miscellaneous'}"/>
+                                    <field name="name"/>
+                                    <field name="product_type"/>
+                                    <field name="product_uom_qty"/>
+                                    <field name="product_uom"/>
+                                    <field name="product_uom_category_id" column_invisible="1"/>
+                                    <field name="price_unit"/>
+                                    <field name="discount"/>
+                                    <field name="price_subtotal"/>
+                                    
+                                </tree>
+                            </field>
+                            <group name="note_group" col="6" class="mt-2 mt-md-0">
+                            <group colspan="4">
+                                <!--<field  colspan="2" name="note" nolabel="1" placeholder="Terms and conditions..."/>-->
+                            </group>
+                            <group class="oe_subtotal_footer" colspan="2" name="sale_total">
+                                <field name="total_miscellaneous_estimation"/>
+                            </group>
+                            <div class="clearfix"/>
+                        </group>
+                        </page>
+                        <page string="Equipment &amp; Tools Estimation" name="equipment_estimation">
+                            <field name="prd_equipment_lines_ids">
+                                <tree string="Equipment &amp; Tools Lines"
+                                    editable="bottom"
+                                    limit="200">
+                                    <field name="product_id" context="{'default_product_type': 'equipment_and_tools'}"/>
+                                    <field name="name"/>
+                                    <field name="product_type"/>
+                                    <field name="product_uom_qty"/>
+                                    <field name="product_uom"/>
+                                    <field name="product_uom_category_id" column_invisible="1"/>
+                                    <field name="price_unit"/>
+                                    <field name="discount"/>
+                                    <field name="price_subtotal"/>
+                                    
+                                </tree>
+                            </field>
+                            <group name="note_group" col="6" class="mt-2 mt-md-0">
+                            <group colspan="4">
+                                <!--<field  colspan="2" name="note" nolabel="1" placeholder="Terms and conditions..."/>-->
+                            </group>
+                            <group class="oe_subtotal_footer" colspan="2" name="sale_total">
+                                <field name="total_equipment_and_tools_estimation"/>
+                            </group>
+                            <div class="clearfix"/>
+                        </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_view_product_components_form" model="ir.actions.act_window">
+        <field name="name">Components</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">product.components</field>
+    </record>
+    
+    <!--<menuitem id="menu_components" name="Components" parent="estimation_menu_root" sequence="1" />
+    <menuitem id="components_menu" name="Component" parent="menu_components" action="action_view_product_components_form" sequence="2" />-->
+</odoo>
+

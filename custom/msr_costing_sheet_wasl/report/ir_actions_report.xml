@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <record id="action_report_costing_sheet" model="ir.actions.report">
+        <field name="name">Costing Sheet Print</field>
+        <field name="model">cost.sheet</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">msr_costing_sheet_wasl.report_cost_sheet</field>
+        <field name="report_file">msr_costing_sheet_wasl.report_cost_sheet</field>
+        <field name="print_report_name">'Cost Sheet - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_cost_sheet"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>
+

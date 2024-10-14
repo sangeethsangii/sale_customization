@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_costing_sheet_tree" model="ir.ui.view">
+        <field name="name">cost.sheet.tree</field>
+        <field name="model">cost.sheet</field>
+        <field name="arch" type="xml">
+            <tree string="Estimation">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="date_order"/>
+                <field name="user_id"/>
+                <field name="company_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_costing_sheet_form" model="ir.ui.view">
+        <field name="name">cost.sheet.form</field>
+        <field name="model">cost.sheet</field>
+        <field name="arch" type="xml">
+            <form string="Estimation">
+                <header>
+                    <button name="action_estimation_send" id="send_by_email" string="Send by Email" type="object"
+                            invisible="state not in ('draft')" data-hotkey="g"/>
+                    <button name="action_confirm" id="action_confirm" data-hotkey="q"
+                            string="Confirm" class="btn-primary" type="object"
+                            invisible="state not in ['sent', 'draft']"/>
+                    <button name="action_approve" id="action_approve" data-hotkey="q"
+                            string="Approve" class="btn-primary" type="object"
+                            invisible="state != 'confirm'"/>
+                    <button name="action_create_quotation" id="action_create_quotation"
+                            string="Create Quotation" class="btn-primary" type="object"
+                            invisible="state != 'approved'"/>
+                    <button name="action_cancel" id="action_cancel" data-hotkey="q"
+                            string="Cancel" type="object"
+                            invisible="state in ['draft', 'approved', 'cancel']"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,sent,confirm,approved,cancel"
+                           force_save="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id" widget="res_partner_many2one"
+                                   context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}"
+                                   options="{&quot;always_reload&quot;: True}" required="1"
+                                   readonly="state not in ['draft', 'sent']"/>
+                            <field name="pricelist_id" readonly="state not in ['draft', 'sent']"/>
+                            <field name="payment_term_id" readonly="state not in ['draft', 'sent']"/>
+                            <field name="client_order_ref" readonly="state not in ['draft', 'sent']"/>
+                        </group>
+                        <group>
+                            <field name="date_order" readonly="state not in ['draft', 'sent']"/>
+                            <field name="validity_date" readonly="state not in ['draft', 'sent']"/>
+                            <field name="company_id" readonly="state not in ['draft', 'sent']"/>
+                            <field name="currency_id" readonly="state not in ['draft', 'sent']"/>
+                            <field name="project_id" readonly="state not in ['draft', 'sent']"/>
+                            <field name="analytic_account_id" readonly="state not in ['draft', 'sent']"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Order Lines" name="cost_line_ids">
+                            <field name="cost_line_ids" readonly="state not in ['draft', 'sent']">
+                                <tree
+                                        string="Estimation Order Lines"
+                                        editable="bottom"
+                                        limit="200">
+                                    <field name="sequence" column_invisible="1"/>
+                                    <field
+                                            name="product_id"
+                                            required="1"
+                                            force_save="1"
+                                            options="{
+                                            'no_open': True,
+                                        }"/>
+                                    <field name="name" widget="section_and_note_text"/>
+                                    <button name="action_button_product_components" type="object"
+                                            string="Product Components" class="oe_highlight"/>
+                                    <field
+                                            name="product_uom_qty"/>
+                                    <field
+                                            name="product_uom"
+                                            force_save="1"
+                                            string="UoM"
+                                            groups="uom.group_uom"
+                                            options='{"no_open": True}'/>
+                                    <field name="product_uom_category_id" column_invisible="1"/>
+                                    <field name="price_unit"/>
+                                    <!--<field name="discount" string="Disc.%" groups="product.group_discount_per_so_line" optional="show"/>-->
+                                    <field name="margin_percentage"/>
+                                    <field name="margin_fixed" optional="hide"/>
+                                    <field name="contigency_perc"/>
+                                    <field name="margin_rate" column_invisible="1"/>
+
+                                    <field name="tax_ids" widget="many2many_tags"
+                                           options="{'no_create': True}"/>
+                                    <field name="price_subtotal"/>
+                                    <field name="price_total" string="Tax Incl." optional="show"/>
+                                    <field name="subproduct_line_id" readonly="1" force_save="1"/>
+                                </tree>
+                            </field>
+                            <group name="note_group" col="6" class="mt-2 mt-md-0">
+                                <group colspan="4">
+                                    <!--<field  colspan="2" name="note" nolabel="1" placeholder="Terms and conditions..."/>-->
+                                </group>
+                                <group class="oe_subtotal_footer" colspan="2" name="sale_total">
+                                    <field name="amount_before_margin"/>
+                                    <field name="amount_margin" string="Amount Margin"/>
+                                    <field name="amount_contigency" string="Amount Contigency"/>
+                                    <field name="amount_untaxed" string="Total Amount Without VAT"/>
+                                    <field name="amount_tax"/>
+                                    <field name="amount_total"/>
+                                </group>
+                                <div class="clearfix"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_view_costing_sheet_form" model="ir.actions.act_window">
+        <field name="name">Costing Sheet</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">cost.sheet</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">Create your Estimation</p>
+        </field>
+    </record>
+    <menuitem id="estimation_menu_root" name="Costing Sheet" sequence="7"
+              web_icon="msr_costing_sheet_wasl,static/description/icon.png"/>
+    <menuitem id="menu_estimation" name="Costing Sheet" parent="estimation_menu_root" sequence="1"/>
+    <menuitem id="estimation_menu" name="Costing Sheet" parent="menu_estimation" action="action_view_costing_sheet_form"
+              sequence="2"/>
+</odoo>
+
