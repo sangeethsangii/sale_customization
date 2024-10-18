@@ -444,3 +444,6 @@ class CostSheetLine(models.Model):
                 total_tax = sum(t.get('amount', 0.0) for t in taxes['taxes'])
             line.price_tax = total_tax
             line.price_total = line.price_subtotal + line.price_tax
+
+
+
