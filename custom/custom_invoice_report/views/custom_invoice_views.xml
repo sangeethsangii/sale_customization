@@ -1,0 +1,104 @@
+<odoo>
+    <data>
+        <record id="view_custom_invoice_form" model="ir.ui.view">
+            <field name="name">custom.invoice.form</field>
+            <field name="model">custom.invoice</field>
+            <field name="arch" type="xml">
+                <form string="Custom Invoice">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Invoice No"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="issue_date"/>
+                                <field name="period_from"/>
+                                <field name="period_to"/>
+                                <field name="wo_no"/>
+                                <field name="job_site"/>
+                                <field name="remarks"/>
+                                <field name="payment_terms"/>
+                            </group>
+                            <group>
+                                <field name="vendor_no"/>
+                                <field name="contract_no"/>
+                                <field name="ref_no"/>
+                                <field name="po_no"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Vendor Details">
+                                <group>
+                                    <group>
+                                        <field name="vendor_name"/>
+                                        <field name="vendor_street"/>
+                                        <field name="vendor_building_no"/>
+                                        <field name="vendor_additional_no"/>
+                                        <field name="vendor_postal_code"/>
+                                    </group>
+                                    <group>
+                                        <field name="vendor_city"/>
+                                        <field name="vendor_district"/>
+                                        <field name="vendor_country"/>
+                                        <field name="vendor_vat"/>
+                                        <field name="vendor_crn"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Customer Details">
+                                <group>
+                                    <group>
+                                        <field name="customer_name"/>
+                                        <field name="customer_street"/>
+                                        <field name="customer_building_no"/>
+                                        <field name="customer_additional_no"/>
+                                        <field name="customer_postal_code"/>
+                                    </group>
+                                    <group>
+                                        <field name="customer_city"/>
+                                        <field name="customer_district"/>
+                                        <field name="customer_country"/>
+                                        <field name="customer_vat"/>
+                                        <field name="customer_crn"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Invoice Lines">
+                                <field name="invoice_line_ids">
+                                    <tree editable="bottom">
+                                        <field name="nature_of_service"/>
+                                        <field name="ref"/>
+                                        <field name="unit"/>
+                                        <field name="unit_price"/>
+                                        <field name="quantity"/>
+                                        <field name="price_subtotal"/>
+                                        <field name="tax_rate"/>
+                                        <field name="tax_amount"/>
+                                        <field name="price_total"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                        <group class="oe_subtotal_footer oe_right">
+                            <field name="amount_untaxed"/>
+                            <field name="amount_tax"/>
+                            <field name="amount_total" class="oe_subtotal_footer_separator"/>
+                            <field name="amount_total_text"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_custom_invoice" model="ir.actions.act_window">
+            <field name="name">Custom Invoices</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">custom.invoice</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_custom_invoice" name="Custom Invoices" action="action_custom_invoice"/>
+    </data>
+</odoo>

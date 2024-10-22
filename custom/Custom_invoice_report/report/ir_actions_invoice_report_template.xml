@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="ir_actions_invoice_report_template">
         <t t-call="web.external_layout">
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="o">
-                    <t t-call="custom_invoice_report.report_invoice_document" t-lang="o.partner_id.lang"/>
+                    <t t-call="Custom_invoice_report.report_invoice_document" t-lang="o.partner_id.lang"/>
                 </t>
             </t>
         </t>
@@ -15,7 +14,7 @@
         <t t-call="web.external_layout">
             <t t-set="o" t-value="o.with_context(lang=lang)"/>
             <div class="page" style="border: 1px solid black; padding: 10px;">
-                <h2 class="text-center mt-4" style="border-bottom: 1px solid black; padding-bottom: 10px;">
+                <h2 class="text-center mt-4">
                     <span>Tax Invoice</span>
                     <br/>
                     <span>ضريبية فاتورة</span>
@@ -44,15 +43,37 @@
                     </div>
                 </div>
 
-                <!-- Additional Fields -->
+                <!-- Vendor Details -->
+                <div class="row" style="border: 1px solid black; padding: 10px; margin-bottom: 10px;">
+                    <div class="col-6">
+                        <h4>Vendor Details / المورد معلومات</h4>
+                        <div t-field="o.company_id.partner_id"
+                             t-options='{"widget": "contact", "fields": ["name", "address", "phone"], "no_marker": True}'/>
+                        <p>VAT Number:
+                            <span t-field="o.company_id.vat"/>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Customer Details -->
+                <div class="row" style="border: 1px solid black; padding: 10px; margin-bottom: 10px;">
+                    <div class="col-6">
+                        <h4>Customer Details / العميل معلومات</h4>
+                        <div t-field="o.partner_id"
+                             t-options='{"widget": "contact", "fields": ["name", "address", "phone"], "no_marker": True}'/>
+                        <p>VAT Number:
+                            <span t-field="o.partner_id.vat"/>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Additional Fields after Customer Details -->
                 <div class="row" style="border: 1px solid black; padding: 10px; margin-bottom: 10px;">
                     <div class="col-3">
                         <strong>WO No: / العمل رقم</strong>
-<!--                        <span t-field="o.x_wo_no"/>-->
                     </div>
                     <div class="col-3">
                         <strong>Job Site: / العمل موقع</strong>
-<!--                        <span t-field="o.x_job_site"/>-->
                     </div>
                     <div class="col-6">
                         <strong>Remarks: / ملاحظات</strong>
@@ -68,31 +89,10 @@
                     </div>
                     <div class="col-3 mt-2">
                         <strong>Contract No: / العقد رقم</strong>
-<!--                        <span t-field="o.x_contract_no"/>-->
                     </div>
                     <div class="col-3 mt-2">
                         <strong>PO No: / الشراء طلب رقم</strong>
                         <span t-field="o.invoice_origin"/>
-                    </div>
-                </div>
-
-                <!-- Vendor and Customer Details -->
-                <div class="row" style="border: 1px solid black; padding: 10px; margin-bottom: 10px;">
-                    <div class="col-6" style="border-right: 1px solid black;">
-                        <h4>Vendor Details / المورد معلومات</h4>
-                        <div t-field="o.company_id.partner_id"
-                             t-options='{"widget": "contact", "fields": ["name", "address", "phone"], "no_marker": True}'/>
-                        <p>VAT Number:
-                            <span t-field="o.company_id.vat"/>
-                        </p>
-                    </div>
-                    <div class="col-6">
-                        <h4>Customer Details / العميل معلومات</h4>
-                        <div t-field="o.partner_id"
-                             t-options='{"widget": "contact", "fields": ["name", "address", "phone"], "no_marker": True}'/>
-                        <p>VAT Number:
-                            <span t-field="o.partner_id.vat"/>
-                        </p>
                     </div>
                 </div>
 
@@ -152,43 +152,56 @@
                     </tbody>
                 </table>
 
-                <!-- Totals -->
-                <div class="row">
-                    <div class="col-4 ml-auto">
-                        <table class="table table-sm" style="border: 1px solid black;">
-                            <tr>
-                                <td style="border: 1px solid black;">
-                                    <strong>Total (Excluding VAT) / المضافة القيمة ضريبة شامل غير الإجمالي</strong>
-                                </td>
-                                <td class="text-right" style="border: 1px solid black;">
-                                    <span t-field="o.amount_untaxed"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="border: 1px solid black;">
-                                    <strong>Total Taxable Amount / للضريبة الخاضع المبلغ إجمالي</strong>
-                                </td>
-                                <td class="text-right" style="border: 1px solid black;">
-                                    <span t-field="o.amount_untaxed"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="border: 1px solid black;">
-                                    <strong>Total VAT 15% / المضافة القيمة ضريبة إجمالي</strong>
-                                </td>
-                                <td class="text-right" style="border: 1px solid black;">
-                                    <span t-field="o.amount_tax"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="border: 1px solid black;">
-                                    <strong>Total Amount Due / المستحق المبلغ إجمالي</strong>
-                                </td>
-                                <td class="text-right" style="border: 1px solid black;">
-                                    <span t-field="o.amount_total"/>
-                                </td>
-                            </tr>
-                        </table>
+                <!-- Bank Details and Totals -->
+                <div class="row mt-4">
+                    <div class="col-6">
+                        <div class="border p-3">
+                            <h4>Bank Details</h4>
+                            <p>Bank Name:</p>
+                            <p>A/C NAME:
+                                <span t-field="o.company_id.name"/>
+                            </p>
+                            <p>A/C NO:</p>
+                            <p>IBAN NO:</p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="border p-3">
+                            <table class="table table-sm" style="border: 1px solid black;">
+                                <tr>
+                                    <td style="border: 1px solid black;">
+                                        <strong>Total (Excluding VAT) (SAR) / المضافة القيمة ضريبة شامل غير الإجمالي</strong>
+                                    </td>
+                                    <td class="text-right" style="border: 1px solid black;">
+                                        <span t-field="o.amount_untaxed"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid black;">
+                                        <strong>Total Taxable Amount / للضريبة الخاضع المبلغ إجمالي</strong>
+                                    </td>
+                                    <td class="text-right" style="border: 1px solid black;">
+                                        <span t-field="o.amount_untaxed"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid black;">
+                                        <strong>Total VAT 15% / المضافة القيمة ضريبة إجمالي</strong>
+                                    </td>
+                                    <td class="text-right" style="border: 1px solid black;">
+                                        <span t-field="o.amount_tax"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid black;">
+                                        <strong>Total Amount Due / المستحق المبلغ إجمالي</strong>
+                                    </td>
+                                    <td class="text-right" style="border: 1px solid black;">
+                                        <span t-field="o.amount_total"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
 
@@ -197,19 +210,6 @@
                     <strong>Total Amount due in written / مكتوبا المستحق الإجمالي المبلغ:</strong>
                     <span t-field="o.amount_total_words"/>
                 </p>
-
-                <!-- Bank Details -->
-                <div class="row mt-4" style="border: 1px solid black; padding: 10px;">
-                    <div class="col-6">
-                        <h4>Bank Details</h4>
-                        <p>Bank Name:</p>
-                        <p>A/C NAME:
-                            <span t-field="o.company_id.name"/>
-                        </p>
-                        <p>A/C NO:</p>
-                        <p>IBAN NO:</p>
-                    </div>
-                </div>
 
                 <p class="text-center mt-5" style="border-top: 1px solid black; padding-top: 10px;">
                     *This is system generated invoice, does not require signature / stamp*

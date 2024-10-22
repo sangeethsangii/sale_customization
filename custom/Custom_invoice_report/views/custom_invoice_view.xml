@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Account Move Form View Inheritance -->
+    <record id="view_move_form_inherited" model="ir.ui.view">
+        <field name="name">account.move.form.inherited</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <!-- Add Invoice Details -->
+            <xpath expr="//sheet/group" position="inside">
+                <group string="Invoice Details">
+                    <field name="invoice_period_from"/>
+                    <field name="invoice_period_to"/>
+                    <field name="work_order_no"/>
+                    <field name="job_site"/>
+                    <field name="vendor_no"/>
+                    <field name="contract_no"/>
+                    <field name="ref_no"/>
+                    <field name="po_no"/>
+                </group>
+                <group string="Amount in Words">
+                    <field name="amount_total_words"/>
+                    <field name="amount_total_words_ar"/>
+                </group>
+            </xpath>
+
+            <!-- Add Partner Address Details -->
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <group string="Partner Address Details">
+                    <field name="partner_building_no"/>
+                    <field name="partner_additional_no"/>
+                    <field name="partner_district"/>
+                </group>
+            </xpath>
+
+            <!-- Add Company Address Details -->
+            <xpath expr="//field[@name='company_id']" position="after">
+                <group string="Company Address Details">
+                    <field name="company_building_no"/>
+                    <field name="company_additional_no"/>
+                    <field name="company_district"/>
+                </group>
+            </xpath>
+
+            <!-- Modify Invoice Lines -->
+            <xpath expr="//field[@name='invoice_line_ids']/tree//field[@name='product_id']" position="after">
+                <field name="equipment_code"/>
+                <field name="service_nature"/>
+                <field name="unit_type"/>
+            </xpath>
+
+            <!-- Add Remarks Field -->
+            <xpath expr="//field[@name='narration']" position="after">
+                <field name="remarks"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Partner Form View Inheritance -->
+    <record id="view_partner_form_inherited" model="ir.ui.view">
+        <field name="name">res.partner.form.inherited</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='street']" position="before">
+                <field name="building_no"/>
+                <field name="additional_no"/>
+                <field name="district"/>
+            </xpath>
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="vat_number"/>
+                <field name="cr_number"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Company Form View Inheritance -->
+    <record id="view_company_form_inherited" model="ir.ui.view">
+        <field name="name">res.company.form.inherited</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='street']" position="before">
+                <field name="building_no"/>
+                <field name="additional_no"/>
+                <field name="district"/>
+            </xpath>
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="vat_number"/>
+                <field name="cr_number"/>
+            </xpath>
+            <xpath expr="//field[@name='company_registry']" position="after">
+                <group string="Bank Details">
+                    <field name="bank_account_name"/>
+                    <field name="bank_account_number"/>
+                    <field name="bank_name"/>
+                    <field name="iban"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+
