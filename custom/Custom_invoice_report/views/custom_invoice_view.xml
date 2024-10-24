@@ -11,7 +11,7 @@
                 <group string="Invoice Details">
                     <field name="invoice_period_from"/>
                     <field name="invoice_period_to"/>
-                    <field name="work_order_no"/>
+                    <field name="wo_no"/>
                     <field name="job_site"/>
                     <field name="vendor_no"/>
                     <field name="contract_no"/>

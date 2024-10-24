@@ -8,7 +8,7 @@ class AccountMove(models.Model):
     # Invoice Details
     invoice_period_from = fields.Date(string='Invoice Period From')
     invoice_period_to = fields.Date(string='Invoice Period To')
-    work_order_no = fields.Char(string='WO No')
+    wo_no = fields.Char(string='WO No')
     job_site = fields.Char(string='Job Site')
     remarks = fields.Text(string='Remarks')
     vendor_no = fields.Char(string='Vendor No')

@@ -1,228 +1,214 @@
 <odoo>
-    <template id="ir_actions_invoice_report_template">
-        <t t-call="web.external_layout">
-            <t t-call="web.html_container">
-                <t t-foreach="docs" t-as="o">
-                    <t t-call="Custom_invoice_report.report_invoice_document" t-lang="o.partner_id.lang"/>
-                </t>
+    <template id="report_invoice_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id">
+                    <div class="page" style="font-size: 10px; margin: 0; padding: 10px;">
+                        <!-- Header -->
+                        <h2 class="text-center mb-3">
+                            <span>Tax Invoice</span><br/>
+                            <span>ضريبية فاتورة</span>
+                        </h2>
+
+                        <!-- Invoice Information -->
+                        <div class="container mb-2" style="border: 1px solid black; padding: 5px;">
+                            <div class="row">
+                                <div class="col-6">
+                                    <strong>Invoice No: / الفاتورة رقم</strong>
+                                    <span t-field="o.name"/>
+                                </div>
+                                <div class="col-6">
+                                    <strong>Invoice Period: / الفاتورة فترة</strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <strong>Invoice Issue Date: / الفاتورة إصدار تاريخ</strong>
+                                    <span t-field="o.invoice_date"/>
+                                </div>
+                                <div class="col-3">
+                                    <strong>From: / من</strong>
+                                    <span t-field="o.invoice_period_from"/>
+                                </div>
+                                <div class="col-3">
+                                    <strong>To: / إلى</strong>
+                                    <span t-field="o.invoice_period_to"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Vendor Details -->
+                        <div class="mb-2" style="border: 1px solid black; padding: 5px;">
+                            <h5 class="mb-2">Vendor Details / المورد معلومات</h5>
+                            <div class="row">
+                                <div class="col-12">
+                                    <p class="mb-1"><strong>Name: / الاسم</strong> </p>
+                                    <p class="mb-1"><strong>Street Name: / الشارع اسم</strong> </p>
+                                    <p class="mb-1"><strong>Building No: / المبنى رقم</strong> </p>
+                                    <p class="mb-1"><strong>Addl. No: / الاضافي الرقم</strong> </p>
+                                    <p class="mb-1"><strong>District: / الحي</strong> </p>
+                                    <p class="mb-1"><strong>City: / المدينة</strong> </p>
+                                    <p class="mb-1"><strong>Postal Code: / بريدي رمز</strong> </p>
+                                    <p class="mb-1"><strong>Country: / الدولة</strong> </p>
+                                    <p class="mb-0"><strong>VAT Number: / القيمة ضريبة رقم</strong></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Customer Details -->
+                        <div class="mb-2" style="border: 1px solid black; padding: 5px;">
+                            <h5 class="mb-2">Customer Details / العميل معلومات</h5>
+                            <div class="row">
+                                <div class="col-12">
+                                    <p class="mb-1"><strong>Name: / الاسم</strong> </p>
+                                    <p class="mb-1"><strong>Street Name: / الشارع اسم</strong> </p>
+                                    <p class="mb-1"><strong>Building No: / المبنى رقم</strong> </p>
+                                    <p class="mb-1"><strong>Addl. No: / الاضافي الرقم</strong> </p>
+                                    <p class="mb-1"><strong>District: / الحي</strong> </p>
+                                    <p class="mb-1"><strong>City: / المدينة</strong> </p>
+                                    <p class="mb-1"><strong>Postal Code: / بريدي رمز</strong> </p>
+                                    <p class="mb-1"><strong>Country: / الدولة</strong> </p>
+                                    <p class="mb-1"><strong>VAT Number: / القيمة ضريبة رقم</strong> </p>
+                                    <p class="mb-0"><strong>CRN: / التجاري السجل</strong> </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Additional Fields -->
+                        <div class="mb-2" style="border: 1px solid black; padding: 5px;">
+                            <div class="row">
+                                <div class="col-6">
+                                    <p class="mb-1"><strong>WO No: / العمل رقم</strong> <span t-field="o.wo_no"/></p>
+                                    <p class="mb-1"><strong>Job Site: / العمل موقع</strong> </p>
+                                    <p class="mb-1"><strong>Remarks: / ملاحظات</strong> </p>
+                                    <p class="mb-0"><strong>Payment Terms: / السداد شروط</strong> </p>
+                                </div>
+                                <div class="col-6">
+                                    <p class="mb-1"><strong>Vendor No: / المورد رقم</strong> <span t-field="o.partner_id.ref"/></p>
+                                    <p class="mb-1"><strong>Contract No: / العقد رقم</strong> <span t-field="o.contract_no"/></p>
+                                    <p class="mb-1"><strong>Ref No: / رقم مصدر</strong> <span t-field="o.ref"/></p>
+                                    <p class="mb-0"><strong>PO No: / الشراء طلب رقم</strong> <span t-field="o.invoice_origin"/></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Invoice Lines -->
+                        <div class="table-responsive mb-2">
+                            <table class="table table-sm" style="border: 1px solid black; font-size: 9px;">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center" style="border: 1px solid black; padding: 2px;">Nature of Service / الخدمة طبيعة</th>
+                                        <th class="text-center" style="border: 1px solid black; padding: 2px;">Ref / المرجع</th>
+                                        <th class="text-center" style="border: 1px solid black; padding: 2px;">Unit / الوحدة</th>
+                                        <th class="text-center" style="border: 1px solid black; padding: 2px;">Unit Price / الوحدة سعر</th>
+                                        <th class="text-center" style="border: 1px solid black; padding: 2px;">Qty / الكمية</th>
+                                        <th class="text-center" style="border: 1px solid black; padding: 2px;">Total / المجموع</th>
+                                        <th class="text-center" style="border: 1px solid black; padding: 2px;">Taxable Amount / للضريبة الخاضع المبلغ</th>
+                                        <th class="text-center" style="border: 1px solid black; padding: 2px;">Tax Rate / الضريبة معدل</th>
+                                        <th class="text-center" style="border: 1px solid black; padding: 2px;">Tax / الضريبة</th>
+                                        <th class="text-center" style="border: 1px solid black; padding: 2px;">Subtotal Inc Vat / الضريبة شامل الفرعي المجموع</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.invoice_line_ids" t-as="line">
+                                        <tr>
+                                            <td style="border: 1px solid black; padding: 2px;"><span t-field="line.name"/></td>
+                                            <td style="border: 1px solid black; padding: 2px;"><span t-field="line.ref"/></td>
+                                            <td style="border: 1px solid black; padding: 2px;"><span t-field="line.product_uom_id.name"/></td>
+                                            <td style="border: 1px solid black; padding: 2px;" class="text-right"><span t-field="line.price_unit"/></td>
+                                            <td style="border: 1px solid black; padding: 2px;" class="text-right"><span t-field="line.quantity"/></td>
+                                            <td style="border: 1px solid black; padding: 2px;" class="text-right"><span t-field="line.price_subtotal"/></td>
+                                            <td style="border: 1px solid black; padding: 2px;" class="text-right"><span t-field="line.price_subtotal"/></td>
+                                            <td style="border: 1px solid black; padding: 2px;" class="text-center">15%</td>
+                                            <td style="border: 1px solid black; padding: 2px;" class="text-right"><span t-field="line.price_tax"/></td>
+                                            <td style="border: 1px solid black; padding: 2px;" class="text-right"><span t-field="line.price_total"/></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Bottom Section -->
+                        <div class="row">
+                            <!-- Bank Details -->
+                            <div class="col-6">
+                                <div style="border: 1px solid black; padding: 5px;">
+                                    <h5 class="mb-2">Bank Details</h5>
+                                    <p class="mb-1">Bank Name: </p>
+                                    <p class="mb-1">A/C NAME: </p>
+                                    <p class="mb-1">A/C NO: </p>
+                                    <p class="mb-0">IBAN NO: <span t-field="o.company_id.iban"/></p>
+                                </div>
+                            </div>
+                            <!-- Totals -->
+                            <div class="col-6">
+                                <div style="border: 1px solid black; padding: 5px;">
+                                    <table class="table table-sm mb-0" style="border: 1px solid black;">
+                                        <tr>
+                                            <td style="border: 1px solid black; padding: 2px;">
+                                                <strong>Total (Excluding VAT) (SAR)</strong><br/>
+                                                <span class="arabic-text">اﻟﻤﻀﺎﻓﺔ اﻟﻘﻴﻤﺔ ﺿﺮﻳﺒﺔ ﺷﺎﻣﻞ ﻏﻴﺮ اﻹﺟﻤﺎﻟﻲ</span>
+                                            </td>
+                                            <td class="text-right" style="border: 1px solid black; padding: 2px;">
+                                                <span t-field="o.amount_untaxed"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: 1px solid black; padding: 2px;">
+                                                <strong>Total Taxable Amount (SAR)</strong><br/>
+                                                <span class="arabic-text">ﻟﻠﻀﺮﻳﺒﺔ اﻟﺨﺎﺿﻊ اﻟﻤﺒﻠﻎ إﺟﻤﺎﻟﻲ</span>
+                                            </td>
+                                            <td class="text-right" style="border: 1px solid black; padding: 2px;">
+                                                <span t-field="o.amount_untaxed"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: 1px solid black; padding: 2px;">
+                                                <strong>Total VAT 15% (SAR)</strong><br/>
+                                                <span class="arabic-text">اﻟﻤﻀﺎﻓﺔ اﻟﻘﻴﻤﺔ ﺿﺮﻳﺒﺔ إﺟﻤﺎﻟﻲ</span>
+                                            </td>
+                                            <td class="text-right" style="border: 1px solid black; padding: 2px;">
+                                                <span t-field="o.amount_tax"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: 1px solid black; padding: 2px;">
+                                                <strong>Total Amount Due (SAR)</strong><br/>
+                                                <span class="arabic-text">اﻟﻤﺴﺘﺤﻖ اﻟﻤﺒﻠﻎ إﺟﻤﺎﻟﻲ</span>
+                                            </td>
+                                            <td class="text-right" style="border: 1px solid black; padding: 2px;">
+                                                <span t-field="o.amount_total"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                                <!-- Amount in Words -->
+                                <div class="mt-2" style="border: 1px solid black; padding: 5px;">
+                                    <p class="mb-0">
+                                        <strong>Total Amount due in written / مكتوبا المستحق الإجمالي المبلغ</strong><br/>
+                                        <span t-field="o.amount_total_words"/>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Footer -->
+                        <div class="mt-2">
+                            <p class="text-center mb-2" style="font-size: smaller;">
+                                *This is a system-generated invoice and does not require a signature or stamp.*
+                            </p>
+                            <div class="row">
+                                <div class="col-6">
+                                    <p style="font-size: smaller;" class="mb-0">Received By: ____________</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </t>
         </t>
     </template>
-
-    <!-- Invoice document template -->
-    <template id="report_invoice_document">
-        <t t-call="web.external_layout">
-            <t t-set="o" t-value="o.with_context(lang=lang)"/>
-            <div class="page" style="border: 1px solid black; padding: 10px;">
-                <h2 class="text-center mt-4">
-                    <span>Tax Invoice</span>
-                    <br/>
-                    <span>ضريبية فاتورة</span>
-                </h2>
-
-                <!-- Invoice Information -->
-                <div class="row mt-4" style="border: 1px solid black; padding: 10px; margin-bottom: 10px;">
-                    <div class="col-6">
-                        <strong>Invoice No: / الفاتورة رقم</strong>
-                        <span t-field="o.name"/>
-                    </div>
-                    <div class="col-6">
-                        <strong>Invoice Issue Date: / الفاتورة إصدار تاريخ</strong>
-                        <span t-field="o.invoice_date"/>
-                    </div>
-                    <div class="col-12 mt-2">
-                        <strong>Invoice Period: / الفاتورة فترة</strong>
-                    </div>
-                    <div class="col-3">
-                        <strong>From: / من</strong>
-                        <span t-field="o.invoice_period_from"/>
-                    </div>
-                    <div class="col-3">
-                        <strong>To: / إلى</strong>
-                        <span t-field="o.invoice_period_to"/>
-                    </div>
-                </div>
-
-                <!-- Vendor Details -->
-                <div class="row" style="border: 1px solid black; padding: 10px; margin-bottom: 10px;">
-                    <div class="col-6">
-                        <h4>Vendor Details / المورد معلومات</h4>
-                        <div t-field="o.company_id.partner_id"
-                             t-options='{"widget": "contact", "fields": ["name", "address", "phone"], "no_marker": True}'/>
-                        <p>VAT Number:
-                            <span t-field="o.company_id.vat"/>
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Customer Details -->
-                <div class="row" style="border: 1px solid black; padding: 10px; margin-bottom: 10px;">
-                    <div class="col-6">
-                        <h4>Customer Details / العميل معلومات</h4>
-                        <div t-field="o.partner_id"
-                             t-options='{"widget": "contact", "fields": ["name", "address", "phone"], "no_marker": True}'/>
-                        <p>VAT Number:
-                            <span t-field="o.partner_id.vat"/>
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Additional Fields after Customer Details -->
-                <div class="row" style="border: 1px solid black; padding: 10px; margin-bottom: 10px;">
-                    <div class="col-3">
-                        <strong>WO No: / العمل رقم</strong>
-                    </div>
-                    <div class="col-3">
-                        <strong>Job Site: / العمل موقع</strong>
-                    </div>
-                    <div class="col-6">
-                        <strong>Remarks: / ملاحظات</strong>
-                        <span t-field="o.narration"/>
-                    </div>
-                    <div class="col-3 mt-2">
-                        <strong>Payment Terms: / السداد شروط</strong>
-                        <span t-field="o.invoice_payment_term_id.name"/>
-                    </div>
-                    <div class="col-3 mt-2">
-                        <strong>Vendor No: / المورد رقم</strong>
-                        <span t-field="o.partner_id.ref"/>
-                    </div>
-                    <div class="col-3 mt-2">
-                        <strong>Contract No: / العقد رقم</strong>
-                    </div>
-                    <div class="col-3 mt-2">
-                        <strong>PO No: / الشراء طلب رقم</strong>
-                        <span t-field="o.invoice_origin"/>
-                    </div>
-                </div>
-
-                <!-- Invoice Lines -->
-                <table class="table table-sm mt-4" style="border: 1px solid black;">
-                    <thead>
-                        <tr>
-                            <th style="border: 1px solid black;">Nature of Service / الخدمة طبيعة</th>
-                            <th style="border: 1px solid black;">Ref / المرجع</th>
-                            <th style="border: 1px solid black;">Unit / الوحدة</th>
-                            <th style="border: 1px solid black;">Unit Price / الوحدة سعر</th>
-                            <th style="border: 1px solid black;">Qty / الكمية</th>
-                            <th style="border: 1px solid black;">Total / المجموع</th>
-                            <th style="border: 1px solid black;">Taxable Amount / للضريبة الخاضع المبلغ</th>
-                            <th style="border: 1px solid black;">Tax Rate / الضريبة معدل</th>
-                            <th style="border: 1px solid black;">Tax / الضريبة</th>
-                            <th style="border: 1px solid black;">Subtotal Inc Vat / الضريبة شامل الفرعي المجموع</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <t t-foreach="o.invoice_line_ids" t-as="line">
-                            <tr>
-                                <td style="border: 1px solid black;">
-                                    <span t-field="line.name"/>
-                                </td>
-                                <td style="border: 1px solid black;">
-                                    <span t-field="line.ref"/>
-                                </td>
-                                <td style="border: 1px solid black;">
-                                    <span t-field="line.product_uom_id.name"/>
-                                </td>
-                                <td style="border: 1px solid black;">
-                                    <span t-field="line.price_unit"/>
-                                </td>
-                                <td style="border: 1px solid black;">
-                                    <span t-field="line.quantity"/>
-                                </td>
-                                <td style="border: 1px solid black;">
-                                    <span t-field="line.price_subtotal"/>
-                                </td>
-                                <td style="border: 1px solid black;">
-                                    <span t-field="line.price_subtotal"/>
-                                </td>
-                                <td style="border: 1px solid black;">
-                                    <span t-esc="', '.join(map(lambda x: str(x.amount) + '%', line.tax_ids))"/>
-                                </td>
-                                <td style="border: 1px solid black;">
-                                    <span t-field="line.price_total"
-                                          t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
-                                </td>
-                                <td style="border: 1px solid black;">
-                                    <span t-field="line.price_total"
-                                          t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
-                                </td>
-                            </tr>
-                        </t>
-                    </tbody>
-                </table>
-
-                <!-- Bank Details and Totals -->
-                <div class="row mt-4">
-                    <div class="col-6">
-                        <div class="border p-3">
-                            <h4>Bank Details</h4>
-                            <p>Bank Name:</p>
-                            <p>A/C NAME:
-                                <span t-field="o.company_id.name"/>
-                            </p>
-                            <p>A/C NO:</p>
-                            <p>IBAN NO:</p>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="border p-3">
-                            <table class="table table-sm" style="border: 1px solid black;">
-                                <tr>
-                                    <td style="border: 1px solid black;">
-                                        <strong>Total (Excluding VAT) (SAR) / المضافة القيمة ضريبة شامل غير الإجمالي</strong>
-                                    </td>
-                                    <td class="text-right" style="border: 1px solid black;">
-                                        <span t-field="o.amount_untaxed"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="border: 1px solid black;">
-                                        <strong>Total Taxable Amount / للضريبة الخاضع المبلغ إجمالي</strong>
-                                    </td>
-                                    <td class="text-right" style="border: 1px solid black;">
-                                        <span t-field="o.amount_untaxed"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="border: 1px solid black;">
-                                        <strong>Total VAT 15% / المضافة القيمة ضريبة إجمالي</strong>
-                                    </td>
-                                    <td class="text-right" style="border: 1px solid black;">
-                                        <span t-field="o.amount_tax"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="border: 1px solid black;">
-                                        <strong>Total Amount Due / المستحق المبلغ إجمالي</strong>
-                                    </td>
-                                    <td class="text-right" style="border: 1px solid black;">
-                                        <span t-field="o.amount_total"/>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Amount in Words -->
-                <p style="border: 1px solid black; padding: 10px; margin-top: 10px;">
-                    <strong>Total Amount due in written / مكتوبا المستحق الإجمالي المبلغ:</strong>
-                    <span t-field="o.amount_total_words"/>
-                </p>
-
-                <p class="text-center mt-5" style="border-top: 1px solid black; padding-top: 10px;">
-                    *This is system generated invoice, does not require signature / stamp*
-                    <br/>
-                    * ختمًا أو توقيعًا تتطلب ولا ، النظام بواسطة إنشاؤها تم فاتورة هذه *
-                </p>
-
-                <div class="row mt-4">
-                    <div class="col-6">
-                        <p>Received By &amp; Date: ____________</p>
-                    </div>
-                </div>
-            </div>
-        </t>
-    </template>
 </odoo>
+
+
