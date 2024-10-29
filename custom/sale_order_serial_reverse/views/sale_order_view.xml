@@ -1,0 +1,14 @@
+<odoo>
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <field name="serial_number" readonly="1"/>
+                <field name="reverse_serial_number" readonly="1"/>
+                <button name="action_reverse" type="object" string="Reverse"/>
+<!--                        attrs="{'invisible': [('is_reversed', '=', False)]}"/>-->
+            </xpath>
+        </field>
+    </record>
+</odoo>

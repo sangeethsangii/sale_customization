@@ -1,0 +1,32 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<odoo>-->
+<!--    <data>-->
+<!--        <record id="view_sale_order_form_inherit" model="ir.ui.view">-->
+<!--            <field name="name">sale.order.form.inherit</field>-->
+<!--            <field name="model">sale.order</field>-->
+<!--            <field name="inherit_id" ref="sale.view_order_form"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <field name="partner_id" position="before">-->
+<!--                    <field name="quotation_number" readonly="1"/>-->
+<!--                </field>-->
+<!--                <button name="action_confirm" position="before">-->
+<!--                    <button name="action_reverse_quotation"-->
+<!--                            string="REVERSE"-->
+<!--                            type="object"-->
+<!--                            class="oe_highlight"-->
+<!--                            attrs="{'invisible': [('state', 'in', ['sale','done','cancel'])]}"/>-->
+<!--                </button>-->
+<!--                <notebook position="inside">-->
+<!--                    <page string="Quotation History" name="quotation_history">-->
+<!--                        <field name="quotation_history_ids" readonly="1">-->
+<!--                            <tree>-->
+<!--                                <field name="old_quotation_number"/>-->
+<!--                                <field name="change_date"/>-->
+<!--                            </tree>-->
+<!--                        </field>-->
+<!--                    </page>-->
+<!--                </notebook>-->
+<!--            </field>-->
+<!--        </record>-->
+<!--    </data>-->
+<!--</odoo>-->

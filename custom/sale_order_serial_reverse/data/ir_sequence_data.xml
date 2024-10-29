@@ -1,0 +1,11 @@
+<odoo>
+    <data noupdate="1">
+        <record id="seq_sale_order_serial_number" model="ir.sequence">
+            <field name="name">Sale Order Serial Number</field>
+            <field name="code">sale.order.serial.number</field>
+            <field name="prefix">S</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+        </record>
+    </data>
+</odoo>
