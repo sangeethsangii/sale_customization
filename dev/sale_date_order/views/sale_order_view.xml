@@ -1,0 +1,13 @@
+<odoo>
+    <record id="view_order_form_inherit" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <!-- Position date_order before validity_date -->
+            <field name="validity_date" position="before">
+                <field name="date_order" string="Order Date" readonly="0"/>
+            </field>
+        </field>
+    </record>
+</odoo>
