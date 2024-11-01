@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_move_line_filter_inherit" model="ir.ui.view">
+        <field name="name">account.move.line.search.inherit</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_account_move_line_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <field name="credit" string="Credit Amount"/>
+                <field name="debit" string="Debit Amount"/>
+
+                <filter string="Has Credit" name="has_credit"
+                        domain="[('credit', '>', 0.0)]"/>
+                <filter string="Has Debit" name="has_debit"
+                        domain="[('debit', '>', 0.0)]"/>
+
+                <group expand="0" string="Group By">
+                    <filter string="Credit" name="group_by_credit"
+                            context="{'group_by': 'credit'}"/>
+                    <filter string="Debit" name="group_by_debit"
+                            context="{'group_by': 'debit'}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

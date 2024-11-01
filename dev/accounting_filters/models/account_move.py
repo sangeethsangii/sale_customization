@@ -19,3 +19,4 @@ class AccountMove(models.Model):
                 move.amount_due = 0.0
             else:
                 move.amount_due = move.amount_residual
+
