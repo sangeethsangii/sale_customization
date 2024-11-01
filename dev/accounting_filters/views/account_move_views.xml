@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_move_filter_inherit" model="ir.ui.view">
+        <field name="name">account.move.select.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_move_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="amount_due"/>
+                <filter string="Has Amount Due"
+                        name="has_amount_due"
+                        domain="[('amount_due', '>', 0)]"/>
+            </xpath>
+            <xpath expr="//group" position="inside">
+                <filter string="Amount Due"
+                        name="group_by_amount_due"
+                        context="{'group_by': 'amount_due'}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

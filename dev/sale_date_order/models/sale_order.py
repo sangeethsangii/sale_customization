@@ -28,3 +28,7 @@ class SaleOrder(models.Model):
             self.write({'date_order': original_date})
 
         return result
+
+
+
+
