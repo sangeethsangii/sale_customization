@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Project Form View -->
+    <record id="view_project_form_inherit_checklist" model="ir.ui.view">
+        <field name="name">project.project.form.inherit.checklist</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_view_tasks']" position="after">
+                <button class="oe_stat_button"
+                        type="object"
+                        name="open_checklist_form"
+                        icon="fa-tasks"
+                        string="Checklist"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Checklist Line Tree View -->
+    <record id="view_project_checklist_line_tree" model="ir.ui.view">
+        <field name="name">project.checklist.line.tree</field>
+        <field name="model">project.checklist.line</field>
+        <field name="arch" type="xml">
+            <tree string="Checklist Lines">
+                <field name="checklist_master_id"/>
+                <field name="date"/>
+                <field name="is_done"/>
+                <field name="not_applicable"/>
+                <field name="notes"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Project Checklist Form View -->
+    <record id="view_project_checklist_form" model="ir.ui.view">
+        <field name="name">project.checklist.form</field>
+        <field name="model">project.checklist</field>
+        <field name="arch" type="xml">
+            <form string="Project Checklist">
+                <sheet>
+                    <group>
+                        <field name="project_id"/>
+                        <field name="date"/>
+<!--                        <field name="notes"/>-->
+                    </group>
+                    <notebook>
+                        <page string="Checklist Lines">
+                            <field name="checklist_lines">
+                                <tree editable="bottom">
+                                    <field name="checklist_master_id"/>
+                                    <field name="date"/>
+                                    <field name="is_done"/>
+                                    <field name="not_applicable"/>
+                                    <field name="notes"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_project_checklist" model="ir.actions.act_window">
+        <field name="name">Project Checklist</field>
+        <field name="res_model">project.checklist</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

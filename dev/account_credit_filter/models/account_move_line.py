@@ -21,3 +21,4 @@ class AccountMoveLine(models.Model):
             except ValueError:
                 value = 0.0
         return [('debit', operator, value)]
+

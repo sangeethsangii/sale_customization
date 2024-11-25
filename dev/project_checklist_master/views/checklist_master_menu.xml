@@ -1,0 +1,18 @@
+    <!-- Action -->
+<odoo>
+    <record id="action_checklist_master" model="ir.actions.act_window">
+        <field name="name">Checklist Master</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">checklist.master</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menu Item -->
+    <menuitem id="menu_checklist_master"
+        name="Checklist Master"
+        parent="project.menu_project_config"
+        action="action_checklist_master"
+        sequence="50"/>
+</odoo>
+
+

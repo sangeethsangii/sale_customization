@@ -19,15 +19,11 @@ class Project(models.Model):
         """
         projects = super().create(vals_list)
         default_stage_ids = self.env['project.task.type'].search([('is_default_stage', '=', True)])
-        print(default_stage_ids)
+
         for project in projects:
             for default_stage_id in default_stage_ids:
-                print(default_stage_id.project_ids)
                 default_stage_id.project_ids += project
         return projects
-
-
-
 
 
 

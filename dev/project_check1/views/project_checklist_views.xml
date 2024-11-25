@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree View -->
+    <record id="view_project_checklist_tree" model="ir.ui.view">
+        <field name="name">project.checklist.tree</field>
+        <field name="model">project.checklist</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="project_id"/>
+                <field name="checklist_id"/>
+                <field name="date"/>
+                <field name="done"/>
+                <field name="not_applicable"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_project_checklist_form" model="ir.ui.view">
+        <field name="name">project.checklist.form</field>
+        <field name="model">project.checklist</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="project_id"/>
+                            <field name="checklist_id"/>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <field name="done"/>
+                            <field name="not_applicable"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_project_checklist" model="ir.actions.act_window">
+        <field name="name">Project Checklists</field>
+        <field name="res_model">project.checklist</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menu Item -->
+    <menuitem id="menu_project_checklist"
+              name="Project Checklists"
+              action="action_project_checklist"
+              parent="project.menu_main_pm"
+              sequence="5"/>
+</odoo>
