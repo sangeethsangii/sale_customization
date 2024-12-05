@@ -1,0 +1,14 @@
+<odoo>
+    <record id="view_task_form_inherit_depend_task" model="ir.ui.view">
+        <field name="name">project.task.form.depend.task</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="depend_task_id"
+                       options="{'no_create': True}"
+                       context="{'default_project_id': project_id}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

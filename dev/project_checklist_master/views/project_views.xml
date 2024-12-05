@@ -39,9 +39,7 @@
             <form string="Project Checklist">
                 <sheet>
                     <group>
-                        <field name="project_id"/>
-                        <field name="date"/>
-<!--                        <field name="notes"/>-->
+                        <field name="project_id" />
                     </group>
                     <notebook>
                         <page string="Checklist Lines">

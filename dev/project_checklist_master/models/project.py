@@ -6,7 +6,7 @@ class ProjectChecklist(models.Model):
     _name = 'project.checklist'
     _description = 'Project Checklist'
 
-    project_id = fields.Many2one('project.project', string='Project', required=True)
+    project_id = fields.Many2one('project.project', string='Project', required=True, readonly=True)
     checklist_lines = fields.One2many('project.checklist.line', 'checklist_id', string='Checklist Lines')
     date = fields.Date('Date')
     notes = fields.Text('Notes')
@@ -96,3 +96,5 @@ class Project(models.Model):
             'res_id': existing_checklist.id,
             'views': [(False, 'form')],
         }
+
+

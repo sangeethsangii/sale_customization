@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form_inherit_salesperson" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.salesperson</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="salesperson_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Tree/List View -->
+    <record id="view_order_tree_inherit_salesperson" model="ir.ui.view">
+        <field name="name">sale.order.tree.inherit.salesperson</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="salesperson_id" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_sales_order_filter_inherit_salesperson" model="ir.ui.view">
+        <field name="name">sale.order.list.select.inherit.salesperson</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="salesperson_id"/>
+            </field>
+            <filter name="salesperson" position="after">
+                <filter string="Additional Salesperson" name="salesperson_id" context="{'group_by':'salesperson_id'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

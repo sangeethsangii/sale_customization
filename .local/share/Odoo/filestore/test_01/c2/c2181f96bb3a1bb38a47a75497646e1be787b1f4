@@ -74,6 +74,9 @@
 /* /account/static/src/scss/variables.scss */
  @keyframes animate-red{0%{color: red;}100%{color: inherit;}}.animate{animation: animate-red 1s ease;}
 
+/* /hr_org_chart/static/src/scss/variables.scss */
+ 
+
 /* /web/static/src/scss/secondary_variables.scss */
  
 

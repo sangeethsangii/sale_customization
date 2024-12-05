@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_sale_custom">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Sale Order Details</h2>
+                        <div class="row mt32 mb32">
+                            <div class="col-6">
+                                <strong>Customer:</strong>
+                                <p t-field="doc.sale_order_id.partner_id"/>
+                                <strong>Salesperson:</strong>
+                                <p t-field="doc.sale_order_id.user_id"/>
+                            </div>
+                            <div class="col-6">
+                                <strong>Order Reference:</strong>
+                                <p t-field="doc.sale_order_id.name"/>
+                                <strong>Order Date:</strong>
+                                <p t-field="doc.sale_order_id.date_order"/>
+                            </div>
+                        </div>
+                        <table class="table table-sm">
+                            <tr>
+                                <td><strong>Untaxed Amount:</strong></td>
+                                <td class="text-right">
+                                    <span t-field="doc.sale_order_id.amount_untaxed"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Taxes:</strong></td>
+                                <td class="text-right">
+                                    <span t-field="doc.sale_order_id.amount_tax"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Total:</strong></td>
+                                <td class="text-right">
+                                    <span t-field="doc.sale_order_id.amount_total"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+    <record id="action_sale_custom_report" model="ir.actions.report">
+        <field name="name">Custom Sale Report</field>
+        <field name="model">sale.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">custom_sale_report.report_sale_custom</field>
+        <field name="report_file">custom_sale_report.report_sale_custom</field>
+        <field name="binding_model_id" ref="model_sale_report_wizard"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

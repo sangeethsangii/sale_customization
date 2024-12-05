@@ -7,10 +7,8 @@ class ChecklistMaster(models.Model):
 
     name = fields.Char(string='Name', required=True)
 
-
-
     project_id = fields.Many2one(
         'project.project',  # Related model
-        string='Project',   # Label
+        string='Project',  # Label
         ondelete='cascade'  # Optional: Define behavior when the project is deleted
     )

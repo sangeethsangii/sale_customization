@@ -1,7 +1,10 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
 access_checklist_master_user,checklist.master.user,model_checklist_master,project.group_project_user,1,0,0,0
 access_checklist_master_manager,checklist.master.manager,model_checklist_master,project.group_project_manager,1,1,1,1
+
 access_project_checklist_user,project.checklist.user,model_project_checklist,project.group_project_user,1,1,1,1
 access_project_checklist_manager,project.checklist.manager,model_project_checklist,project.group_project_manager,1,1,1,1
+
 access_project_checklist_line_user,project.checklist.line.user,model_project_checklist_line,project.group_project_user,1,0,0,0
 access_project_checklist_line_manager,project.checklist.line.manager,model_project_checklist_line,project.group_project_manager,1,1,1,1

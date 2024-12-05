@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Add button to the control panel -->
+    <record id="sale_order_list_view_custom" model="ir.ui.view">
+        <field name="name">sale.order.list.custom</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+            <tree position="inside">
+                <button name="action_open_filter_wizard"
+                        type="object"
+                        string="Advanced Filter"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Add action button in search view -->
+    <record id="sale_order_search_view_custom" model="ir.ui.view">
+        <field name="name">sale.order.search.custom</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.sale_order_view_search_inherit_quotation"/>
+        <field name="arch" type="xml">
+            <search position="inside">
+                <field name="user_id"/>
+                <field name="date_order"/>
+                <filter name="custom_filter"
+                        string="Custom Filter"
+                        domain="[]"/>
+            </search>
+        </field>
+    </record>
+</odoo>
