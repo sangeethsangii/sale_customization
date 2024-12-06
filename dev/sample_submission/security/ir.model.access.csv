@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sample_submission_user,sample.submission.user,model_sample_submission,group_sample_submission_user,1,1,1,0
+access_sample_submission_manager,sample.submission.manager,model_sample_submission,group_sample_submission_manager,1,1,1,1
+access_sample_material_user,sample.material.user,model_sample_material,group_sample_submission_user,1,1,1,0
+access_sample_material_manager,sample.material.manager,model_sample_material,group_sample_submission_manager,1,1,1,1
+access_material_wizard_user,material.wizard.user,model_material_wizard,group_sample_submission_user,1,1,1,1
+access_material_wizard_line_user,material.wizard.line.user,model_material_wizard_line,group_sample_submission_user,1,1,1,1
+access_sample_report_wizard_user,sample.submission.report.wizard.user,model_sample_submission_report_wizard,group_sample_submission_user,1,1,1,1
+access_invoice_confirm_wizard_user,sample.submission.invoice.confirm.user,model_sample_submission_invoice_confirm,group_sample_submission_user,1,1,1,1

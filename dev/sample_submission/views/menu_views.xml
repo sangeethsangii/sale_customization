@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Actions -->
+    <record id="action_sample_submission" model="ir.actions.act_window">
+        <field name="name">Sample Submissions</field>
+        <field name="res_model">sample.submission</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="context">{'search_default_my_submissions': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first sample submission!
+            </p>
+        </field>
+    </record>
+
+    <!-- Main Menu -->
+    <menuitem
+            id="menu_sample_submission_root"
+            name="Sample Submission"
+            web_icon="sample_submission,static/description/icon.png"
+            sequence="10"/>
+
+    <!-- Submissions Menu -->
+    <menuitem
+            id="menu_sample_submission_main"
+            name="Submissions"
+            parent="menu_sample_submission_root"
+            sequence="10"/>
+
+    <menuitem
+            id="menu_sample_submission_all"
+            name="All Submissions"
+            parent="menu_sample_submission_main"
+            action="action_sample_submission"
+            sequence="10"/>
+
+    <!-- Reporting Menu -->
+    <menuitem
+            id="menu_sample_submission_report"
+            name="Reports"
+            parent="menu_sample_submission_root"
+            sequence="20"/>
+</odoo>

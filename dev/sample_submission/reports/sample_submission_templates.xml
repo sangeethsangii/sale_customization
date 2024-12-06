@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_sample_submission">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <!-- Watermark -->
+                        <div class="watermark">
+                            <img t-att-src="'/sample_submission/static/src/img/watermark.png'" style="opacity: 0.1;"/>
+                        </div>
+
+                        <!-- Header -->
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <h2>Sample Submission Report</h2>
+                            </div>
+                        </div>
+
+                        <!-- Basic Information -->
+                        <div class="row mt-4">
+                            <div class="col-6">
+                                <strong>Sample Number:</strong>
+                                <span t-field="doc.sequence_number"/>
+                                <br/>
+                                <strong>Customer:</strong>
+                                <span t-field="doc.partner_id"/>
+                                <br/>
+                                <strong>Submission Date:</strong>
+                                <span t-field="doc.submission_date"/>
+                            </div>
+                            <div class="col-6">
+                                <strong>Status:</strong>
+                                <span t-field="doc.state"/>
+                                <br/>
+                                <strong>Invoice Status:</strong>
+                                <span t-field="doc.invoice_status"/>
+                            </div>
+                        </div>
+
+                        <!-- Financial Information -->
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <table class="table table-sm">
+                                    <tr>
+                                        <td>
+                                            <strong>Price:</strong>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="doc.price" t-options='{"widget": "monetary"}'/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Discount:</strong>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="doc.discount"/>%
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>VAT:</strong>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="doc.vat"/>%
+                                        </td>
+                                    </tr>
+                                    <tr class="border-top">
+                                        <td>
+                                            <strong>Total Amount:</strong>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="doc.total_amount" t-options='{"widget": "monetary"}'/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Materials -->
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <h4>Required Materials</h4>
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Material</th>
+                                            <th class="text-right">Quantity</th>
+                                            <th class="text-right">Unit Cost</th>
+                                            <th class="text-right">Total Cost</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="doc.material_ids" t-as="material">
+                                            <td>
+                                                <span t-field="material.product_id"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="material.quantity"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="material.unit_cost"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="material.total_cost"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <h4>Description</h4>
+                                <p t-field="doc.description"/>
+                            </div>
+                        </div>
+
+                        <!-- Footer -->
+                        <div class="row mt-4">
+                            <div class="col-12 text-center">
+                                <small>Generated on
+                                    <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M:%S')"/>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Report Action Button -->
+    <record id="action_report_wizard" model="ir.actions.act_window">
+        <field name="name">Generate Report</field>
+        <field name="res_model">sample.submission.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Report Menu -->
+    <menuitem
+        id="menu_sample_submission_report_wizard"
+        name="Generate Reports"
+        parent="menu_sample_submission_report"
+        action="action_report_wizard"
+        sequence="10"/>
+</odoo>

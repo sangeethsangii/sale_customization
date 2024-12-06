@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sample_submission_invoice_confirm_wizard" model="ir.ui.view">
+        <field name="name">sample.submission.invoice.confirm.form</field>
+        <field name="model">sample.submission.invoice.confirm</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="submission_id" readonly="1"/>
+                    </group>
+                    <p>Are you sure you want to create an invoice for this sample submission?</p>
+                </sheet>
+                <footer>
+                    <button name="action_confirm" string="Create Invoice" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sample_submission_invoice_confirm" model="ir.actions.act_window">
+        <field name="name">Create Invoice</field>
+        <field name="res_model">sample.submission.invoice.confirm</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_sample_submission"/>
+    </record>
+</odoo>
